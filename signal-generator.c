@@ -150,7 +150,7 @@ void changeAandF(void) interrupt 2 //外部中断1的中断服务程序
 	while (as != 11) //按下确认键才退出
 	{
 		if (ForA) {
-			for (i = 0; i<5; i++) {     //根据设置模式更新屏幕第4行的显示
+			for (i = 0; i < 5; i++) {     //根据设置模式更新屏幕第4行的显示
 				writeascii(i, 24, setA[i]);
 			}
 			writeascii(8, 24, '*');
@@ -161,7 +161,7 @@ void changeAandF(void) interrupt 2 //外部中断1的中断服务程序
 			writeascii(13, 24, 'V');
 		}
 		else {
-			for (i = 0; i<5; i++) {
+			for (i = 0; i < 5; i++) {
 				writeascii(i, 24, setF[i]);
 			}
 			writeascii(8, 24, 'H');
@@ -177,7 +177,7 @@ void changeAandF(void) interrupt 2 //外部中断1的中断服务程序
 			Led_ctl = 0x40;
 			as = Led_dat;
 			as = as & 0xf;
-			while (i++<200) {
+			while (i++ < 200) {
 				delay(100);
 			}
 			if (as == 10) //按下更改设置模式按键
@@ -188,7 +188,7 @@ void changeAandF(void) interrupt 2 //外部中断1的中断服务程序
 			if ((as <= 9) && (as >= 0)) //按下数字键
 			{
 
-				if (t<3) {
+				if (t < 3) {
 					tmpc[t++] = as + 48;
 					writeascii(5 + t - 1, 24, as + 48);
 				}
@@ -202,13 +202,14 @@ void changeAandF(void) interrupt 2 //外部中断1的中断服务程序
 	if (t != 0) {
 		if (ForA) {  //修改完成，根据标志变量进行参数的重新设置
 			AMP = tmp;
-			for (i = 0; i<3; i++) Achar[i] = tmpc[i];
+			for (i = 0; i < 3; i++) Achar[i] = tmpc[i];
 			changetmp(); //更新了振幅后要更新数模转换数据
 		}
 		else {
 			t0 = (1250 + tmp) / (2 * tmp) - 4; //更新了频率后要更新频率输出相关参数（用到四舍五入）
-			for (i = 0; i<3; i++) Fchar[i] = tmpc[i];
+			for (i = 0; i < 3; i++) Fchar[i] = tmpc[i];
 		}
 	}
 	LCDshow(); //进行屏幕显示更新
 	EA = 1; //最后打开总中断口
+}
